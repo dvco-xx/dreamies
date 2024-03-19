@@ -1,0 +1,16 @@
+.allproducts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 100vh;
+  margin: 20px;
+}
+.allproducts h2 {
+  margin: 15px;
+}
+.allproducts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+}
