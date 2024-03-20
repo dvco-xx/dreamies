@@ -1,6 +1,7 @@
 import React from "react";
 import "./Breadcrumb.css";
 import arrow_icon from "../Assets/breadcrum_arrow.png";
+import { Link } from "react-router-dom";
 
 const Breadcrumb = (props) => {
   const { product } = props;
@@ -9,7 +10,9 @@ const Breadcrumb = (props) => {
   }
   return (
     <div className="breadcrumb">
-      Home <img src={arrow_icon} alt="" /> Shop <img src={arrow_icon} alt="" />
+      <Link to={"/"}> Home </Link>
+      <img src={arrow_icon} alt="" /> <Link to={"/allproducts"}>Shop</Link>
+      <img src={arrow_icon} alt="" />
       {product.category} <img src={arrow_icon} alt="" /> {product.name}
     </div>
   );

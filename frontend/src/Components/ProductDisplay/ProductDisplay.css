@@ -37,7 +37,7 @@
 .productdisplay-right h1 {
   color: #3d3d3d;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .productdisplay-right-stars {
@@ -88,6 +88,10 @@
   border-radius: 5px;
 }
 
+.productdisplay-buttons button {
+  margin-right: 20px;
+}
+
 .productdisplay-right button {
   padding: 20px 40px;
   width: 200px;
@@ -100,6 +104,15 @@
   outline: none;
   cursor: pointer;
   border-radius: 5px;
+}
+
+.productdisplay-right button:hover {
+  background: #e54d4d;
+}
+
+.productdisplay-right button:active {
+  outline: #1c1c1c;
+  background: #ff5656;
 }
 
 .productdisplay-right-category {

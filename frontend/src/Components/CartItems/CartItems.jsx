@@ -4,7 +4,7 @@ import "./CartItems.css";
 import { ShopContext } from "../../Context/ShopContext";
 import remove_icon from "../Assets/cart_cross_icon.png";
 import PaystackPop from "@paystack/inline-js";
-import { AuthContext } from "../../Pages/LoginSignup";
+import { useAuth } from "../../Context/AuthProvider";
 
 const CartItems = () => {
   const {
@@ -14,13 +14,11 @@ const CartItems = () => {
     removeFromCart,
     isCartEmpty,
   } = useContext(ShopContext);
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading } = useAuth();
   console.log("User:", user);
-  console.log("Loading:", loading);
   const navigate = useNavigate();
   if (loading) {
-    // Check loading state
-    return <div>Loading...</div>; // Render loading message
+    return <div>Loading...</div>;
   }
 
   const payWithPaystack = (e) => {
@@ -61,7 +59,7 @@ const CartItems = () => {
               <div className="cartitems-format cartitems-format-main">
                 <img src={e.image} alt="" className="carticon-product-icon" />
                 <p>{e.name}</p>
-                <p>${e.new_price}</p>
+                <p>₦{e.new_price}</p>
                 <button className="cartitems-quantity">
                   {cartItems[e.id]}
                 </button>
@@ -94,7 +92,7 @@ const CartItems = () => {
             <hr />
             <div className="cartitems-total-item">
               <p>Shipping Fee</p>
-              <p>₦3,000</p>
+              <p>Pay on Delivery</p>
             </div>
             <hr />
             <div className="cartitems-total-item">

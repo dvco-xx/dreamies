@@ -1,11 +1,6 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useAuth } from "../Context/AuthProvider";
 import "./CSS/LoginSignup.css";
-
-// Create a new context
-const AuthContext = React.createContext();
-
-export const useAuth = () => useContext(AuthContext);
 
 const LoginSignup = () => {
   const [state, setState] = useState("Login");
@@ -14,63 +9,21 @@ const LoginSignup = () => {
     password: "",
     email: "",
   });
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
 
-  // Call useAuth hook to get login function
-  const { login } = useAuth();
+  const { login, signup, loading } = useAuth();
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (userToken) => {
-    setUser(userToken);
-    localStorage.setItem("auth-token", userToken);
+  const handleLogin = () => {
     login(formData);
-    // window.location.replace("/");
-    navigate("/");
   };
-  // const login = async (req, res) => {
-  //   console.log("login function executed", formData);
-  //   let responseData;
-  //   await fetch("http://localhost:4000/login", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/form-data",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(formData),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => (responseData = data));
-  //   if (responseData.success) {
-  //     localStorage.setItem("auth-token", responseData.token);
-  //     window.location.replace("/");
-  //   } else {
-  //     alert(responseData.error);
-  //   }
-  // };
-  const signup = async () => {
-    console.log("signup function executed", formData);
-    let responseData;
-    await fetch("http://localhost:5000/signup", {
-      method: "POST",
-      headers: {
-        Accept: "application/form-data",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => (responseData = data));
-    if (responseData.success) {
-      localStorage.setItem("auth-token", responseData.token);
-      window.location.replace("/");
-    } else {
-      alert(responseData.error);
-    }
+
+  const handleSignup = () => {
+    signup(formData);
   };
+
   return (
     <div className="loginsignup">
       <div className="loginsignup-container">
@@ -84,9 +37,7 @@ const LoginSignup = () => {
               placeholder="Your name"
               onChange={changeHandler}
             />
-          ) : (
-            <></>
-          )}
+          ) : null}
           <input
             type="email"
             name="email"
@@ -102,45 +53,32 @@ const LoginSignup = () => {
             onChange={changeHandler}
           />
         </div>
-        <button onClick={state === "Login" ? handleLogin : signup}>
-          Continue
+        <button onClick={state === "Login" ? handleLogin : handleSignup}>
+          {loading ? "Loading..." : "Continue"}
         </button>
         {state === "Sign Up" ? (
-          <p className="loginsignup-login">
-            Already have an account?{" "}
-            <span
-              onClick={() => {
-                setState("Login");
-              }}
-            >
-              Login here
-            </span>
-          </p>
+          <>
+            <p className="loginsignup-login">
+              Already have an account?{" "}
+              <span onClick={() => setState("Login")}>Login here</span>
+            </p>
+            <div className="loginsignup-agree">
+              <input type="checkbox" name="" id="" />
+              <p>
+                By clicking continue, I consent to the terms of use and privacy
+                policy.
+              </p>
+            </div>
+          </>
         ) : (
           <p className="loginsignup-login">
             Create an account{" "}
-            <span
-              onClick={() => {
-                setState("Sign Up");
-              }}
-            >
-              Click here
-            </span>
+            <span onClick={() => setState("Sign Up")}>Click here</span>
           </p>
         )}
-
-        <div className="loginsignup-agree">
-          <input type="checkbox" name="" id="" />
-          <p>
-            By clicking continue, I consent to the terms of use and privacy
-            policy.
-          </p>
-        </div>
       </div>
     </div>
   );
 };
 
-// Export the AuthContext
-export { AuthContext };
 export default LoginSignup;

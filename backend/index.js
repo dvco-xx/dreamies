@@ -76,6 +76,9 @@ const Product = mongoose.model("Product", {
   quantity: {
     type: Number,
   },
+  description: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now(),
@@ -261,6 +264,10 @@ const fetchUser = async (req, res, next) => {
     }
   }
 };
+
+app.get("/user", fetchUser, (req, res) => {
+  res.json({ user: req.user });
+});
 
 app.post("/addtocart", fetchUser, async (req, res) => {
   //   console.log(req.body, req.user);

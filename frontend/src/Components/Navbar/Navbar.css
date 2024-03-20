@@ -30,9 +30,12 @@
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  color: black;
   gap: 3px;
   cursor: pointer;
+}
+.nav-menu li a {
+  text-decoration: none;
+  color: black;
 }
 .nav-menu hr {
   border: none;

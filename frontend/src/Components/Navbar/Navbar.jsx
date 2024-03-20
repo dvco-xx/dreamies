@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import "./Navbar.css";
 import dreamieslogo from "../Assets/dreamieslogo2.png";
 import cart_icon from "../Assets/cart_icon.png";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../../Context/ShopContext";
 import nav_dropdown from "../Assets/nav_dropdown.png";
-
+import { useAuth } from "../../Context/AuthProvider";
 const Navbar = () => {
   const [menu, setMenu] = useState("shop");
   const { getTotalCartItems } = useContext(ShopContext);
+  const { user } = useAuth();
   const menuRef = useRef(null);
   const dropdown_toggle = (e) => {
     if (menuRef.current) {
@@ -16,14 +17,6 @@ const Navbar = () => {
       e.target.classList.toggle("open");
     }
   };
-  // const checkToken = () => {
-  //   if (localStorage.getItem("auth-token") === true) {
-  //     window.location.replace("/");
-  //   }
-  // };
-  // useEffect(() => {
-  //   checkToken();
-  // }, []);
   return (
     <div className="navbar">
       <div className="nav-logo">
@@ -54,7 +47,7 @@ const Navbar = () => {
           }}
         >
           <Link style={{ textDecoration: "none" }} to="/allproducts">
-            Products
+            All Products
           </Link>
           {menu === "allproducts" ? <hr /> : <></>}
         </li>
@@ -81,7 +74,7 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-login-cart">
-        {localStorage.getItem("auth-token") ? (
+        {user ? (
           <button
             onClick={() => {
               localStorage.removeItem("auth-token");
