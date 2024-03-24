@@ -2,6 +2,7 @@ const port = 5000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path"); // we can get access to the backend directory in the express app
@@ -11,9 +12,7 @@ const { error, log } = require("console");
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(
-  "mongodb+srv://bukolafunmi1897:CMyTQkjJDnpdDlTv@dreamy.9exfr7l.mongodb.net/ecommerce"
-);
+mongoose.connect(process.env.MONGO_URL);
 
 app.get("/", (req, res) => {
   res.send("Express App is running...");
