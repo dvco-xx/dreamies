@@ -6,11 +6,13 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 require("dotenv").config();
-const { error, log } = require("console");
-
 app.use(express.json());
 app.use(cors());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGO_URL);
 
