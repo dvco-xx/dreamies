@@ -4,7 +4,7 @@
   "description": "e-commerce backend",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index",
+    "test": "nodemon app.js",
     "start": "node index"
   },
   "repository": {
